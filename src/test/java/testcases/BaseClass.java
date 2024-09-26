@@ -7,8 +7,6 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.*;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
 
@@ -38,9 +36,10 @@ public class BaseClass {
             }
 
             driver.manage().deleteAllCookies();
+            driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
             driver.get(prop.getProperty("url"));
-            driver.manage().window().maximize();
+
         }
 
 

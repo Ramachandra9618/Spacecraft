@@ -151,20 +151,16 @@ public class DesignerPage extends BaseClass {
     }
 
     public void drawRectangleOnCanvas() {
-        int startX = 250;
-        int startY = 250;
-        int endX = 100;
-        int endY = 100;
-        actions.moveToElement(designCanvas)
-                .scrollByAmount(0, 100) // Adjust the Y value for zoom level
-                .perform();
-
+        int startX = 100;
+        int startY = 100;
+        int endX = 200;
+        int endY = 200;
         actions.moveToElement(designCanvas, startX, startY)
                 .clickAndHold()
                 .moveByOffset(endX - startX, endY - startY)
                 .release()
                 .perform();
-//        actions.moveToElement(designCanvas, endX, endY).click().perform();
+        actions.moveToElement(designCanvas, endX, endY).click().perform();
     }
 
     public void createRoom() {
