@@ -7,8 +7,6 @@ import pageObject.DesignerPage;
 import pageObject.IndexPage;
 
 
-import java.time.Duration;
-
 public class DesignerPageTest extends BaseClass {
 
     @Test

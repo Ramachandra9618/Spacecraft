@@ -39,12 +39,12 @@ public class DesignerPage extends BaseClass {
     @FindBy(xpath = "//div[@class='Rooms__roomListItem--1-UbQ']//p")
     List<WebElement> roomList;
 
-    @FindBy(css = "input .inputBoxGrid null form-control") List <WebElement> widthLengthInputs;
+    @FindBy(css = "div[class='modal-body'] input[class='inputBoxGrid null form-control']") List <WebElement> widthLengthInputs;
 
     @FindBy(xpath = "//div[@class='ViewSwitch__tab--2v2Vs false 3DSwitch']")
     WebElement threeDViewButton;
 
-    @FindBy(css = "canvas[tabindex='0'][width='1500']")
+    @FindBy(xpath = "//div[@id='fpApp']//canvas[@tabindex='0']")
     WebElement designCanvas;
 
     @FindBy(xpath = "//div[@class='form-group col']//button[@id='dropdown-button-drop-down']")
@@ -84,6 +84,7 @@ public class DesignerPage extends BaseClass {
     @FindBy(css = "div.RoomSummary__zoneDiv--3qxb8 div.RoomSummary__zoneContainer--fGX_s p:nth-child(1)")
      List<WebElement> categoriesInQuoteSummary;
 
+    @FindBy(css = "input[placeholder='Enter Room Name']") WebElement roomNameInput;
 
     // Actions
 
@@ -124,6 +125,11 @@ public class DesignerPage extends BaseClass {
         }
     }
 
+    public void enterRoomName(String name){
+        roomNameInput.clear();
+        roomNameInput.sendKeys(name);
+    }
+
     public void openFurnitureTab() {
         waitForElementToBeVisible(furnitureTab, 50);
         furnitureTab.click();
@@ -145,7 +151,10 @@ public class DesignerPage extends BaseClass {
         bedroomOption.click();
     }
     public void enterWidthAndLength(String width, String length){
-       widthLengthInputs.get(0).sendKeys(width);
+        System.out.println(widthLengthInputs.size());
+       widthLengthInputs.get(0).clear();
+        widthLengthInputs.get(0).sendKeys(width);
+        widthLengthInputs.get(1).clear();
        widthLengthInputs.get(1).sendKeys(length);
 
     }
@@ -201,9 +210,8 @@ public class DesignerPage extends BaseClass {
         clickDrawPlanButton();
         createRoom();
         openCreateRoomOption();
+        Thread.sleep(2000);
         selectRectangleShapeOption();
-        System.out.println(1111);
-        Thread.sleep(10000);
         drawRectangleOnCanvas();
 
         waitForElementToBeVisible(roomTypeDropdown, 20);
