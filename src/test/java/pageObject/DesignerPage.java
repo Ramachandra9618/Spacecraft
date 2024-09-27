@@ -150,6 +150,10 @@ public class DesignerPage extends BaseClass {
     public void selectBedroom() {
         bedroomOption.click();
     }
+    public void selectRoomType(String roomType){
+        WebElement ele = driver.findElement(By.linkText(roomType));
+        ele.click();
+    }
     public void enterWidthAndLength(String width, String length){
         System.out.println(widthLengthInputs.size());
        widthLengthInputs.get(0).clear();
@@ -164,6 +168,15 @@ public class DesignerPage extends BaseClass {
         int startY = 100;
         int endX = 200;
         int endY = 200;
+        actions.moveToElement(designCanvas, startX, startY)
+                .clickAndHold()
+                .moveByOffset(endX - startX, endY - startY)
+                .release()
+                .perform();
+        actions.moveToElement(designCanvas, endX, endY).click().perform();
+    }
+
+    public void drawRectangleOnCanvas(int startX, int startY, int endX, int endY) {
         actions.moveToElement(designCanvas, startX, startY)
                 .clickAndHold()
                 .moveByOffset(endX - startX, endY - startY)
