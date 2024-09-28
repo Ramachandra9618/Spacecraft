@@ -86,6 +86,101 @@ public class DesignerPage extends BaseClass {
 
     @FindBy(css = "input[placeholder='Enter Room Name']") WebElement roomNameInput;
 
+    // multi
+
+    @FindBy(css = "div.common__title--3ro7T svg:nth-child(1)")
+    WebElement backToCategoryButton;
+
+    @FindBy(css = "div.common__subHeader--3e66K svg:nth-child(1)")
+    WebElement backSubCategoryButton;
+
+    @FindBy(xpath = "//div[@class='common__cardWrapperProduct--3M-vq']")
+    WebElement firstProductItem;
+
+    @FindBy(css = "div.common__crossIcon--2OZmq span:nth-child(1)")
+    WebElement closeButton;
+
+    @FindBy(id = "services")
+    WebElement servicesTabButton;
+
+    @FindBy(css = ".common__zoneAddToRoom--hKYqF")
+    WebElement firstAddToRoomButton;
+
+    @FindBy(css = "div.SidebarCatalog__serviceAddBtn--3P3h2")
+    WebElement addToRoomButton1;
+
+    @FindBy(css = ".common__addButton--1ZLrJ")
+    WebElement addToQuoteButton;
+
+    @FindBy(css = "div.productInfo__ctaButton--ykwdD")
+    WebElement serviceAddToQuoteButton;
+
+    @FindBy(css = "div.SidebarCatalog__serviceName--1zWkm")
+    WebElement serviceNameText;
+
+    public String getServiceNameText() {
+        return serviceNameText.getText();
+    }
+
+    public void clickServiceAddToQuoteButton() {
+        serviceAddToQuoteButton.click();
+    }
+
+    public void clickServicesTabButton() {
+        servicesTabButton.click();
+    }
+
+    public void clickAddToRoomButton() {
+        addToRoomButton1.click();
+    }
+
+    public void clickCloseButton() {
+        closeButton.click();
+    }
+
+    public void selectService(String service) {
+        WebElement serviceElement = driver.findElement(By.xpath("//div[contains(text(),'" + service + "')]"));
+        waitForElementToBeVisible(serviceElement, 50);
+        if (serviceElement.isDisplayed()) {
+            serviceElement.click();
+        }
+    }
+
+    public void selectSubService(String subService) {
+        WebElement subServiceElement = driver.findElement(By.xpath("//li[contains(text(),'" + subService + "')]"));
+        waitForElementToBeVisible(subServiceElement, 50);
+        if (subServiceElement.isDisplayed()) {
+            subServiceElement.click();
+        }
+    }
+
+    public String getFirstProductItemName() {
+        WebElement ele = driver.findElement(By.className("common__cardTitle--2WZxw"));
+        return ele.getText();
+    }
+
+    public void clickBackToCategory() {
+        backToCategoryButton.click();
+    }
+
+    public void clickBackSubCategory() {
+        backSubCategoryButton.click();
+    }
+
+    public void hoverOnFirstProductItem() {
+        waitForElementToBeVisible(firstProductItem, 20);
+        actions.moveToElement(firstProductItem).perform();
+    }
+
+    public void clickFirstAddToRoomButton() {
+        firstAddToRoomButton.click();
+    }
+
+    public void clickAddToQuoteButton() {
+        addToQuoteButton.click();
+    }
+
+
     // Actions
 
     public void closeSidebar() {
@@ -127,6 +222,11 @@ public class DesignerPage extends BaseClass {
 
     public void enterRoomName(String name){
         roomNameInput.clear();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         roomNameInput.sendKeys(name);
     }
 
@@ -243,19 +343,45 @@ public class DesignerPage extends BaseClass {
 
     public String findCategory(String category, String subCategory) {
         for (WebElement element : categoriesInQuoteSummary) {
-            String[] categoryParts = element.getText().split(" \\| ");
-            String[] subCategoryParts = categoryParts[1].split(" - ");
+            System.out.println(
+                    element.getText()
+            );
+            if (element.getText().indexOf("|") != -1) {
 
-            System.out.println(categoryParts[0]);
-            System.out.println(subCategoryParts[0]);
+                String[] categoryParts = element.getText().split(" \\| ");
+                String[] subCategoryParts = categoryParts[1].split(" - ");
 
-            if (categoryParts[0].equalsIgnoreCase(category) && subCategoryParts[0].equalsIgnoreCase(subCategory)) {
-                WebElement itemName = driver.findElement(By.cssSelector("div.RoomSummary__zoneDiv--3qxb8 div.RoomSummary__zoneContainer--fGX_s p:nth-child(2)"));
-                return itemName.getText();
+//                System.out.println(categoryParts[0]);
+//                System.out.println(subCategoryParts[0]);
+
+                if (categoryParts[0].equals(category.toUpperCase()) && subCategoryParts[0].equals(subCategory.toUpperCase())) {
+                    WebElement itemName = driver.findElement(By.cssSelector("div.RoomSummary__zoneDiv--3qxb8 div.RoomSummary__zoneContainer--fGX_s p:nth-child(2)"));
+                    System.out.println(itemName.getText() + "Ram achanana");
+                    return itemName.getText();
+                }
+            } else {
+                // For other categories without the '|' character
+                String[] subCategoryParts = element.getText().split(" - ");
+                System.out.println(subCategoryParts[0]);
+                if(subCategoryParts[0].equals(category.toUpperCase())) {
+                    WebElement itemName = driver.findElement(By.cssSelector("div.RoomSummary__productName--2qEeu"));
+                    return itemName.getText();  // Return the found item name when a match is found
+                }
             }
         }
         return "Category not found";  // More informative return message
     }
+
+public String findCategory1(String category, String subCategory) {
+    for (WebElement element : categoriesInQuoteSummary) {
+        String[] subCategoryParts = element.getText().split(" - ");
+        if (subCategoryParts[0].equalsIgnoreCase(subCategory)) {
+            WebElement itemName = driver.findElement(By.cssSelector("div.RoomSummary__zoneDiv--3qxb8 div.RoomSummary__zoneContainer--fGX_s p:nth-child(2)"));
+            return itemName.getText();  // Return the found item name when a match is found
+        }
+    }
+    return "Category not found";
+}
 
     public void clickQuoteSummary() {
         quoteSummaryOption.click();

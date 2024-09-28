@@ -12,7 +12,8 @@ public class IndexPage extends BaseClass {
     }
 
     @FindBy(css = "p.HeaderComponent-module__design_button--qW3DU")
-    WebElement skipButton;
+WebElement skipButton;
+//    @FindBy(xpath = "//p[@class='HeaderComponent-module__design_button--qW3DU']")
 
     public void clickSkip(){
         skipButton.click();

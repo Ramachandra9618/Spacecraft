@@ -14,7 +14,7 @@ public class BaseClass {
         public static WebDriver driver;
     Properties prop = new Properties();
 
-        @BeforeClass
+        @BeforeMethod
         void setUp() {
             try {
                 FileInputStream files = new FileInputStream("configurations/config.properties");
@@ -41,6 +41,11 @@ public class BaseClass {
             driver.get(prop.getProperty("url"));
 
         }
+
+    @AfterMethod
+    void tearDown()  {
+        driver.quit();
+    }
 
 
     }
