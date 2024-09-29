@@ -8,10 +8,13 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import testcases.BaseClass;
 
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DesignerPage extends BaseClass {
 
@@ -43,6 +46,8 @@ public class DesignerPage extends BaseClass {
 
     @FindBy(xpath = "//div[@class='ViewSwitch__tab--2v2Vs false 3DSwitch']")
     WebElement threeDViewButton;
+
+    @FindBy(xpath = "//div[@class='ViewSwitch__tab--2v2Vs false']")WebElement twoDViewButton;
 
     @FindBy(xpath = "//div[@id='fpApp']//canvas[@tabindex='0']")
     WebElement designCanvas;
@@ -306,6 +311,10 @@ public class DesignerPage extends BaseClass {
         threeDViewButton.click();
     }
 
+    public void switchTo2DView(){
+        twoDViewButton.click();
+    }
+
     public boolean findAndSelectRoom(String roomName) throws InterruptedException {
         for (WebElement room : roomList) {
             System.out.println(room.getText());
@@ -406,6 +415,100 @@ public String findCategory1(String category, String subCategory) {
     public void waitForElementToBeVisible(WebElement element, int timeoutInSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    // Method to create a new room
+    public void createNewRoom( Map<String, String> coordinates) throws InterruptedException {
+        clickDrawPlanButton();
+        createRoom();
+        openCreateRoomOption();
+        selectRectangleShapeOption();
+        Thread.sleep(5000);
+
+        drawRectangleOnCanvas(
+                Integer.parseInt(coordinates.get("startX")),
+                Integer.parseInt(coordinates.get("startY")),
+                Integer.parseInt(coordinates.get("endX")),
+                Integer.parseInt(coordinates.get("endY"))
+        );
+
+        openRoomTypeDropdown();
+        selectRoomType(coordinates.get("roomType"));
+        enterWidthAndLength(coordinates.get("width"), coordinates.get("length"));
+        confirmRoomSelection();
+    }
+
+    // Method to apply furniture to the room
+    public void applyFurniture( List<Map<String, String>> furnitureList, List<Map<String, String>> checks) throws InterruptedException {
+        switchTo3DView();
+        Thread.sleep(5000);
+        openFurnitureTab();
+        Thread.sleep(5000);
+
+        for (Map<String, String> furniture : furnitureList) {
+            selectFurnitureType(furniture.get("furnitureType"));
+            Thread.sleep(2000);
+            selectCategory(furniture.get("category"));
+            selectSubCategory(furniture.get("subCategory"));
+
+            String productName;
+            Map<String, String> temp = new HashMap<>();
+
+            if (furniture.get("furnitureType").equals("Fitted Furniture")) {
+                hoverOnProduct();
+                productName = getProductItemText().split("\n")[0];
+                temp.put("furnitureType", "Fitted Furniture");
+            } else {
+                hoverOnFirstProductItem();
+                productName = getFirstProductItemName();
+                temp.put("furnitureType", furniture.get("furnitureType"));
+            }
+
+            temp.put("category", furniture.get("category"));
+            temp.put("subCategory", furniture.get("subCategory"));
+            temp.put("product", productName);
+            checks.add(temp);
+
+            addFurnitureToRoom(furniture);
+        }
+    }
+
+    // Helper method to add furniture to the room
+    public void addFurnitureToRoom( Map<String, String> furniture) throws InterruptedException {
+        if (furniture.get("furnitureType").equals("Fitted Furniture")) {
+            addProductToRoom();
+            Thread.sleep(5000);
+            clickBackToCategory();
+        } else {
+            clickFirstAddToRoomButton();
+            clickAddToQuoteButton();
+            clickCloseButton();
+            openFurnitureTab();
+        }
+    }
+
+    // Method to add a service to the room
+    public void addService( String serviceType, String subServiceType) throws InterruptedException {
+        clickServicesTabButton();
+        selectService(serviceType);
+        Thread.sleep(2000);
+        selectSubService(subServiceType);
+        System.out.println(getServiceNameText());
+        clickAddToRoomButton();
+        clickServiceAddToQuoteButton();
+        Thread.sleep(2000);
+    }
+
+    // Method to verify furniture in the quote summary
+    public void verifyFurnitureInQuoteSummary( String roomType, List<Map<String, String>> checks) throws InterruptedException {
+        clickQuoteSummary();
+        selectRoomInQuoteSummary(roomType);
+
+        for (Map<String, String> check : checks) {
+            selectProductType(check.get("furnitureType"));
+            String product = findCategory(check.get("category"), check.get("subCategory"));
+            Assert.assertEquals(check.get("product").toUpperCase(), product.toUpperCase());
+        }
     }
 
 }
