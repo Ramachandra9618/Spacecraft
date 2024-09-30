@@ -1,0 +1,4 @@
+1. Create a room based on input argument (List - Roomname, Roomtype)
+2. Add furniture, based again on input from CSV
+3. Download a Pricing payload
+4. Trigger an email

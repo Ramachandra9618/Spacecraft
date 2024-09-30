@@ -404,12 +404,12 @@ public class DesignerPage extends BaseClass {
     }
 
     // Method to create a new room
-    public void createNewRoom( Map<String, String> coordinates) throws InterruptedException {
+    public void createNewRoom( Map<String, String> coordinates)  {
         clickDrawPlanButton();
         createRoom();
         openCreateRoomOption();
         selectRectangleShapeOption();
-        Thread.sleep(5000);
+        waitForElementToBeVisible(designCanvas, 20);
 
         drawRectangleOnCanvas(
                 Integer.parseInt(coordinates.get("startX")),

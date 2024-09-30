@@ -35,7 +35,6 @@ public class TwoRoomsTest extends BaseClass  {
         // Room 1 dimensions (Living Room)
         Map<String, String> livingRoomDimensions = new HashMap<>();
         livingRoomDimensions.put("roomType", "Living Room");
-        livingRoomDimensions.put("roomName", "Living");
         livingRoomDimensions.put("startX", "100");
         livingRoomDimensions.put("startY", "100");
         livingRoomDimensions.put("endX", "200");
@@ -56,7 +55,6 @@ public class TwoRoomsTest extends BaseClass  {
         // Room 2 dimensions (Bedroom)
         Map<String, String> bedroomDimensions = new HashMap<>();
         bedroomDimensions.put("roomType", "Bedroom");
-        bedroomDimensions.put("roomName", "Kitchen");
         bedroomDimensions.put("startX", "10");
         bedroomDimensions.put("startY", "10");
         bedroomDimensions.put("endX", "20");
