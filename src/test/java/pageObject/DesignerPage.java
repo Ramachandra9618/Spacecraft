@@ -365,13 +365,12 @@ public class DesignerPage extends BaseClass {
 
                 if (categoryParts[0].equals(category.toUpperCase()) && subCategoryParts[0].equals(subCategory.toUpperCase())) {
                     WebElement itemName = driver.findElement(By.cssSelector("div.RoomSummary__zoneDiv--3qxb8 div.RoomSummary__zoneContainer--fGX_s p:nth-child(2)"));
-                    System.out.println(itemName.getText() + "Ram achanana");
                     return itemName.getText();
                 }
             } else {
                 // For other categories without the '|' character
                 String[] subCategoryParts = element.getText().split(" - ");
-                System.out.println(subCategoryParts[0]);
+//                System.out.println(subCategoryParts[0]);
                 if(subCategoryParts[0].equals(category.toUpperCase())) {
                     WebElement itemName = driver.findElement(By.cssSelector("div.RoomSummary__productName--2qEeu"));
                     return itemName.getText();  // Return the found item name when a match is found
