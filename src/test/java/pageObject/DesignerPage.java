@@ -236,7 +236,7 @@ public class DesignerPage extends BaseClass {
     }
 
     public void openFurnitureTab() {
-        waitForElementToBeVisible(furnitureTab, 50);
+        waitForElementToBeClickble(furnitureTab, 50);
         furnitureTab.click();
     }
 
@@ -402,6 +402,10 @@ public class DesignerPage extends BaseClass {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         wait.until(ExpectedConditions.visibilityOf(element));
     }
+    public void waitForElementToBeClickble(WebElement element, int timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
 
     // Method to create a new room
     public void createNewRoom( Map<String, String> coordinates)  {
@@ -429,11 +433,9 @@ public class DesignerPage extends BaseClass {
         switchTo3DView();
         Thread.sleep(5000);
         openFurnitureTab();
-        Thread.sleep(5000);
 
         for (Map<String, String> furniture : furnitureList) {
             selectFurnitureType(furniture.get("furnitureType"));
-            Thread.sleep(2000);
             selectCategory(furniture.get("category"));
             selectSubCategory(furniture.get("subCategory"));
 
@@ -460,10 +462,9 @@ public class DesignerPage extends BaseClass {
     }
 
     // Helper method to add furniture to the room
-    public void addFurnitureToRoom( Map<String, String> furniture) throws InterruptedException {
+    public void addFurnitureToRoom( Map<String, String> furniture)   {
         if (furniture.get("furnitureType").equals("Fitted Furniture")) {
             addProductToRoom();
-            Thread.sleep(5000);
             clickBackToCategory();
         } else {
             clickFirstAddToRoomButton();
@@ -474,15 +475,13 @@ public class DesignerPage extends BaseClass {
     }
 
     // Method to add a service to the room
-    public void addService( String serviceType, String subServiceType) throws InterruptedException {
+    public void addService( String serviceType, String subServiceType)   {
         clickServicesTabButton();
         selectService(serviceType);
-        Thread.sleep(2000);
         selectSubService(subServiceType);
         System.out.println(getServiceNameText());
         clickAddToRoomButton();
         clickServiceAddToQuoteButton();
-        Thread.sleep(2000);
     }
 
     // Method to verify furniture in the quote summary
