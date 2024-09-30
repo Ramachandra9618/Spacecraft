@@ -360,8 +360,6 @@ public class DesignerPage extends BaseClass {
                 String[] categoryParts = element.getText().split(" \\| ");
                 String[] subCategoryParts = categoryParts[1].split(" - ");
 
-//                System.out.println(categoryParts[0]);
-//                System.out.println(subCategoryParts[0]);
 
                 if (categoryParts[0].equals(category.toUpperCase()) && subCategoryParts[0].equals(subCategory.toUpperCase())) {
                     WebElement itemName = driver.findElement(By.cssSelector("div.RoomSummary__zoneDiv--3qxb8 div.RoomSummary__zoneContainer--fGX_s p:nth-child(2)"));
@@ -370,26 +368,15 @@ public class DesignerPage extends BaseClass {
             } else {
                 // For other categories without the '|' character
                 String[] subCategoryParts = element.getText().split(" - ");
-//                System.out.println(subCategoryParts[0]);
                 if(subCategoryParts[0].equals(category.toUpperCase())) {
                     WebElement itemName = driver.findElement(By.cssSelector("div.RoomSummary__productName--2qEeu"));
-                    return itemName.getText();  // Return the found item name when a match is found
+                    return itemName.getText();
                 }
             }
         }
-        return "Category not found";  // More informative return message
+        return "Category not found";
     }
 
-public String findCategory1(String category, String subCategory) {
-    for (WebElement element : categoriesInQuoteSummary) {
-        String[] subCategoryParts = element.getText().split(" - ");
-        if (subCategoryParts[0].equalsIgnoreCase(subCategory)) {
-            WebElement itemName = driver.findElement(By.cssSelector("div.RoomSummary__zoneDiv--3qxb8 div.RoomSummary__zoneContainer--fGX_s p:nth-child(2)"));
-            return itemName.getText();  // Return the found item name when a match is found
-        }
-    }
-    return "Category not found";
-}
 
     public void clickQuoteSummary() {
         quoteSummaryOption.click();
@@ -499,7 +486,7 @@ public String findCategory1(String category, String subCategory) {
     }
 
     // Method to verify furniture in the quote summary
-    public void verifyFurnitureInQuoteSummary( String roomType, List<Map<String, String>> checks) throws InterruptedException {
+    public void verifyFurnitureInQuoteSummary( String roomType, List<Map<String, String>> checks)  {
         clickQuoteSummary();
         selectRoomInQuoteSummary(roomType);
 
