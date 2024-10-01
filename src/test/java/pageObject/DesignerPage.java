@@ -1,6 +1,8 @@
 package pageObject;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -123,6 +125,41 @@ public class DesignerPage extends BaseClass {
     @FindBy(css = "div.SidebarCatalog__serviceName--1zWkm")
     WebElement serviceNameText;
 
+    //download
+
+    @FindBy(xpath = "//input[@placeholder='Search by name']")WebElement searchOption;
+    @FindBy(xpath = "//div[@class='Topbar__debugOptionContainer--1aFYv']")WebElement cloud;
+    @FindBy(xpath = "//li[@class='Topbar__debugOption--TKCtt']") List<WebElement> lists;
+    public void selectList(){
+        for(WebElement ele: lists){
+            if (ele.getText().equals("Price Payload")){
+                ele.click();
+            }
+        }
+    }
+    public void clickCloud(){
+        cloud.click();
+    }
+
+
+    public void searchModule(String module){
+        searchOption.click();
+        searchOption.sendKeys(module);
+    }
+
+    public void EnableHideEnvironment(){
+        WebElement body = driver.findElement(By.tagName("body"));
+
+        Actions actions = new Actions(driver);
+
+        // Simulate Ctrl + H + D key combination
+        actions.keyDown(Keys.CONTROL)
+                .sendKeys("h")
+                .sendKeys("d")
+                .keyUp(Keys.CONTROL)
+                .perform();
+    }
+//dkdkd
     public String getServiceNameText() {
         return serviceNameText.getText();
     }
@@ -226,13 +263,18 @@ public class DesignerPage extends BaseClass {
     }
 
     public void enterRoomName(String name){
-        roomNameInput.clear();
+        WebElement roomNameInput = driver.findElement(By.cssSelector("input[placeholder='Enter Room Name']"));
+
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        roomNameInput.clear();
         roomNameInput.sendKeys(name);
+
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        js.executeScript("arguments[0].value = arguments[1];", name, roomNameInput);
     }
 
     public void openFurnitureTab() {
@@ -424,6 +466,7 @@ public class DesignerPage extends BaseClass {
 
         openRoomTypeDropdown();
         selectRoomType(coordinates.get("roomType"));
+        enterRoomName(coordinates.get("roomName"));
         enterWidthAndLength(coordinates.get("width"), coordinates.get("length"));
         confirmRoomSelection();
     }

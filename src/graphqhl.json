@@ -1,0 +1,1 @@
+{"operationName":"getPanelCores","variables":{"moduleIds":[11666]},"query":"query getPanelCores($moduleIds: [Int!]!) {\n  getPanelCores(moduleIds: $moduleIds) {\n    moduleId\n    panelCores {\n      panelName\n      panelType\n      panelCoreId\n      panelCoreName\n      __typename\n    }\n    __typename\n  }\n}\n"}

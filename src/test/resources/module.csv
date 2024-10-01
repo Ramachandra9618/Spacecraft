@@ -1,0 +1,3 @@
+s.no,Room Type ,Room Name ,Length,Width,Furniture Type,Category,CategoryID,subCategory,SubCategoryID,Module,ModuleID
+1,Bedroom,BedRoom,2000,2000,Fitted Furniture,Storage,10005,Study Unit,10029,ST-GBR-2_Comfort_900,10251
+2,LivingRoom,LivingRoom,4000,4000,Fitted Furniture,Loft,10006,Box Loft,10013,LBL-2_Essential_500,10385
