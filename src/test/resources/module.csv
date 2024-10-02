@@ -1,3 +1,4 @@
-s.no,Room Type ,Room Name ,Length,Width,Furniture Type,Category,CategoryID,subCategory,SubCategoryID,Module,ModuleID
-1,Bedroom,BedRoom,2000,2000,Fitted Furniture,Storage,10005,Study Unit,10029,ST-GBR-2_Comfort_900,10251
-2,LivingRoom,LivingRoom,4000,4000,Fitted Furniture,Loft,10006,Box Loft,10013,LBL-2_Essential_500,10385
+s.no,Room Type ,Room Name ,Length,Width,Furniture Type,Category,CategoryID,subCategory,SubCategoryID,Module,ModuleID,zoneID,unitEntryType
+1,Bedroom,BedRoom,2000,2000,FITTED_FURNITURE,Storage,10005,Study Unit,10029,ST-GBR-2_Comfort_900,10251,058bc3c3-657f-406f-a53e-c1dbb4e6d9a8
+2,LivingRoom,LivingRoom,4000,4000,Fitted Furniture,Loft,10006,Box Loft,10013,LBL-2_Essential_500,10385,bea437ad-73b1-47a5-814c-d71e28eb0483
+3,kitchen,Kitchen,3000,3000,Fitted Furniture,Kitchen,1001,Storage,10011,COTY Preset 1,,978d7324-5733-4d23-8160-f934ca7ac119

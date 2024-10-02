@@ -22,7 +22,7 @@ public class ReadDataFromCSV {
 
             while ((row = reader.readNext()) != null) {
                 if (currentRow == targetRow) {
-                    System.out.println(row[targetColumn]);
+//                    System.out.println(row[targetColumn]);
                     return row[targetColumn];
                 }
                 currentRow++;

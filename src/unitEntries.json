@@ -1,1 +1,21 @@
-{"zoneID":"242a53bd-e3b0-4c49-b203-5bc313025622","unitEntryType":"FITTED_FURNITURE","width":450,"height":2800,"length":609,"position":{"x":4175.1675000000005,"y":0,"z":3295.3725000000004},"rotation":{"x":0,"y":0,"z":0},"categoryId":"10003","subCategoryId":"10001","addedFromMySpace":false,"profileType":"REGULAR"}
+{
+  "zoneID": "bea437ad-73b1-47a5-814c-d71e28eb0483",
+  "unitEntryType": "FITTED_FURNITURE",
+  "width": 500,
+  "height": 700,
+  "length": 380,
+  "position": {
+    "x": -2310,
+    "y": 0,
+    "z": -978
+  },
+  "rotation": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+  },
+  "categoryId": "10006",
+  "subCategoryId": "10013",
+  "addedFromMySpace": false,
+  "profileType": "REGULAR"
+}
