@@ -1,18 +1,18 @@
 {
-  "area": 15302.248677248695,
-  "roomType": "Livingroom",
+  "area": 15302.248610052899,
+  "roomType": "Kitchen",
   "loc": {
-    "x": -169.56349206349213,
-    "y": -58.45238095238096,
+    "x": -169.56349,
+    "y": -58.452380000000005,
     "s": false
   },
-  "breadth": 108.01587301587307,
-  "length": 141.66666666666674,
+  "breadth": 108.01587,
+  "length": 141.66667,
   "category": "RoomNode",
   "isSuggested": 0,
   "suggestedRoomType": "null",
-  "fill": "#FFF7EF",
-  "key": "720c410cf9ba2efe33e7d6d6f2586c93",
+  "fill": "#FFF29C",
+  "key": "c4a521f05d53c23534f535e3b8b34ad4",
   "walls": [
     {
       "key": "18e1e3c4fb86599ca310a862d7df6d5e",
@@ -20,42 +20,40 @@
       "category": "WallGroup",
       "wallType": "BRICK",
       "url": null,
-      "color": "#979797",
       "length": 2160,
       "wallHeight": 3000,
       "width": null,
       "thickness": 100,
       "isGroup": true,
-      "isDivider": false,
       "startPoint": {
         "className": "go.Point",
-        "x": -3441.269841269843,
-        "y": -1219.0476190476193
+        "x": -3441.2698,
+        "y": -1219.0476
       },
       "endPoint": {
         "className": "go.Point",
-        "x": -1180.9523809523812,
-        "y": -1219.0476190476193
+        "x": -1180.9524,
+        "y": -1219.0476
       },
       "smpt1": {
         "className": "go.Point",
-        "x": -3391.269841269843,
-        "y": -1169.0476190476193
+        "x": -3391.2698,
+        "y": -1169.0476
       },
       "smpt2": {
         "className": "go.Point",
-        "x": -3491.269841269843,
-        "y": -1269.0476190476193
+        "x": -3491.2698,
+        "y": -1269.0476
       },
       "empt1": {
         "className": "go.Point",
-        "x": -1230.9523809523812,
-        "y": -1169.0476190476193
+        "x": -1230.9524,
+        "y": -1169.0476
       },
       "empt2": {
         "className": "go.Point",
-        "x": -1130.9523809523812,
-        "y": -1269.0476190476193
+        "x": -1130.9524,
+        "y": -1269.0476
       },
       "minLocation": {
         "className": "go.Point",
@@ -74,42 +72,40 @@
       "category": "WallGroup",
       "wallType": "BRICK",
       "url": null,
-      "color": "#979797",
       "length": 2840,
       "wallHeight": 3000,
       "width": null,
       "thickness": 100,
       "isGroup": true,
-      "isDivider": false,
       "startPoint": {
         "className": "go.Point",
-        "x": -3441.269841269843,
-        "y": 1714.2857142857156
+        "x": -3441.2698,
+        "y": 1714.2858
       },
       "endPoint": {
         "className": "go.Point",
-        "x": -3441.269841269843,
-        "y": -1219.0476190476193
+        "x": -3441.2698,
+        "y": -1219.0476
       },
       "smpt1": {
         "className": "go.Point",
-        "x": -3391.269841269843,
-        "y": 1664.2857142857156
+        "x": -3391.2698,
+        "y": 1664.2858
       },
       "smpt2": {
         "className": "go.Point",
-        "x": -3491.269841269843,
-        "y": 1764.2857142857156
+        "x": -3491.2698,
+        "y": 1764.2858
       },
       "empt1": {
         "className": "go.Point",
-        "x": -3391.269841269843,
-        "y": -1169.0476190476193
+        "x": -3391.2698,
+        "y": -1169.0476
       },
       "empt2": {
         "className": "go.Point",
-        "x": -3491.269841269843,
-        "y": -1269.0476190476193
+        "x": -3491.2698,
+        "y": -1269.0476
       },
       "minLocation": {
         "className": "go.Point",
@@ -128,42 +124,40 @@
       "category": "WallGroup",
       "wallType": "BRICK",
       "url": null,
-      "color": "#979797",
       "length": 2160,
       "wallHeight": 3000,
       "width": null,
       "thickness": 100,
       "isGroup": true,
-      "isDivider": false,
       "startPoint": {
         "className": "go.Point",
-        "x": -1180.9523809523812,
-        "y": 1714.2857142857156
+        "x": -1180.9524,
+        "y": 1714.2858
       },
       "endPoint": {
         "className": "go.Point",
-        "x": -3441.269841269843,
-        "y": 1714.2857142857156
+        "x": -3441.2698,
+        "y": 1714.2858
       },
       "smpt1": {
         "className": "go.Point",
-        "x": -1230.9523809523812,
-        "y": 1664.2857142857156
+        "x": -1230.9524,
+        "y": 1664.2858
       },
       "smpt2": {
         "className": "go.Point",
-        "x": -1130.9523809523812,
-        "y": 1764.2857142857156
+        "x": -1130.9524,
+        "y": 1764.2858
       },
       "empt1": {
         "className": "go.Point",
-        "x": -3391.269841269843,
-        "y": 1664.2857142857156
+        "x": -3391.2698,
+        "y": 1664.2858
       },
       "empt2": {
         "className": "go.Point",
-        "x": -3491.269841269843,
-        "y": 1764.2857142857156
+        "x": -3491.2698,
+        "y": 1764.2858
       },
       "minLocation": {
         "className": "go.Point",
@@ -182,42 +176,40 @@
       "category": "WallGroup",
       "wallType": "BRICK",
       "url": null,
-      "color": "#979797",
       "length": 2840,
       "wallHeight": 3000,
       "width": null,
       "thickness": 100,
       "isGroup": true,
-      "isDivider": false,
       "startPoint": {
         "className": "go.Point",
-        "x": -1180.9523809523812,
-        "y": -1219.0476190476193
+        "x": -1180.9524,
+        "y": -1219.0476
       },
       "endPoint": {
         "className": "go.Point",
-        "x": -1180.9523809523812,
-        "y": 1714.2857142857156
+        "x": -1180.9524,
+        "y": 1714.2858
       },
       "smpt1": {
         "className": "go.Point",
-        "x": -1230.9523809523812,
-        "y": -1169.0476190476193
+        "x": -1230.9524,
+        "y": -1169.0476
       },
       "smpt2": {
         "className": "go.Point",
-        "x": -1130.9523809523812,
-        "y": -1269.0476190476193
+        "x": -1130.9524,
+        "y": -1269.0476
       },
       "empt1": {
         "className": "go.Point",
-        "x": -1230.9523809523812,
-        "y": 1664.2857142857156
+        "x": -1230.9524,
+        "y": 1664.2858
       },
       "empt2": {
         "className": "go.Point",
-        "x": -1130.9523809523812,
-        "y": 1764.2857142857156
+        "x": -1130.9524,
+        "y": 1764.2858
       },
       "minLocation": {
         "className": "go.Point",
@@ -250,7 +242,7 @@
     }
   ],
   "assets": [],
-  "name": "Livingroom",
+  "name": "Kitchen",
   "isSelected": false,
   "fixture": {
     "roomFixtures": {},
@@ -259,7 +251,7 @@
       "windows": {}
     }
   },
-  "id": "720c410cf9ba2efe33e7d6d6f2586c93",
+  "id": "c4a521f05d53c23534f535e3b8b34ad4",
   "isDoowUp": false,
-  "roomShape": "Rect-0"
+  "roomShape": ""
 }
