@@ -1,21 +1,21 @@
 {
-  "zoneID": "bea437ad-73b1-47a5-814c-d71e28eb0483",
+  "zoneID": "517fe4c2-7ccc-43e4-9d7d-2f0c85c3fa6f",
   "unitEntryType": "FITTED_FURNITURE",
-  "width": 500,
-  "height": 700,
-  "length": 380,
+  "width": 1400,
+  "height": 2100,
+  "length": 612,
   "position": {
     "x": -2310,
     "y": 0,
-    "z": -978
+    "z": 248.5000000000001
   },
   "rotation": {
     "x": 0,
     "y": 0,
     "z": 0
   },
-  "categoryId": "10006",
-  "subCategoryId": "10013",
+  "categoryId": "10003",
+  "subCategoryId": "10001",
   "addedFromMySpace": false,
   "profileType": "REGULAR"
 }

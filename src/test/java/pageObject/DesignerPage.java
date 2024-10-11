@@ -13,10 +13,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import testcases.BaseClass;
 
+import java.io.File;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static testcases.EmailSender.*;
 
 public class DesignerPage extends BaseClass {
 
@@ -130,9 +134,13 @@ public class DesignerPage extends BaseClass {
     @FindBy(xpath = "//input[@placeholder='Search by name']")WebElement searchOption;
     @FindBy(xpath = "//div[@class='Topbar__debugOptionContainer--1aFYv']")WebElement cloud;
     @FindBy(xpath = "//li[@class='Topbar__debugOption--TKCtt']") List<WebElement> lists;
-    public void selectList(){
+    @FindBy(xpath = "//*[name()='path' and contains(@d,'M-5-5h24v2')]") WebElement plus;
+    public void clickPlus(){
+        plus.click();
+    }
+    public void selectList(String fileName){
         for(WebElement ele: lists){
-            if (ele.getText().equals("Price Payload")){
+            if (ele.getText().equals(fileName)){
                 ele.click();
             }
         }
@@ -537,6 +545,30 @@ public class DesignerPage extends BaseClass {
             String product = findCategory(check.get("category"), check.get("subCategory"));
             Assert.assertEquals(check.get("product").toUpperCase(), product.toUpperCase());
         }
+    }
+    public void downloadAndSentEmail(List<String> fileNames){
+        EnableHideEnvironment();
+        clickCloud();
+        List<File> files = new ArrayList<>();
+        for(String fileName : fileNames){
+            selectList(fileName);
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+           if (fileName.equals("Price Payload")) {
+               File attachmentPath = getLatestFile("/home/chandra/Downloads", ".json", "Price_Payload");
+               files.add(attachmentPath);
+           }else if(fileName.equals("Cutlist")){
+               File attachmentPath = getLatestFile("/home/chandra/Downloads", ".csv", "Cutlist_0db2a0db-e304-4459-b3d6-3d961cb816c4");
+               files.add(attachmentPath);
+           }
+        }
+        String toEmail = "civilramachandra2001@gmail.com";
+        String subject = "Environment files";
+        String messageBody = "Details";
+        sendEmailWithAttachments( toEmail, subject, messageBody, files);
     }
 
 }

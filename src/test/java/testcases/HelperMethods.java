@@ -12,7 +12,7 @@ import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
 
-public class HelperMethods {
+public class HelperMethods extends BaseClass{
     public JSONObject updateFurnitureDetails(Map furniture) {
         JSONParser jsonParser = new JSONParser();
         JSONObject updatedFurnitureData = null;
@@ -59,27 +59,6 @@ public class HelperMethods {
         return UpdatedRoomData;
     }
 
-    public JSONObject updateRoomDetails(Map roomDetails) {
-        JSONParser jsonParser = new JSONParser();
-        String uniqueKey = (String) UUID.randomUUID().toString().replaceAll("-", "");
-        ;
-        JSONObject UpdatedRoomData = null;
-        try {
-            FileReader readerRoom = new FileReader("src/room.json");
-            JSONObject roomData = (JSONObject) jsonParser.parse(readerRoom);
-            roomData.put("key", uniqueKey);
-            roomData.put("id", uniqueKey);
-            roomDetails.forEach((key, value) -> {
-                roomData.put(key, value);
-            });
-
-            UpdatedRoomData = roomData;
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return UpdatedRoomData;
-    }
-
     public JSONArray updateLengthWalls(int length, int width, int roomCount) {
 
         JSONParser jsonParser = new JSONParser();
@@ -109,29 +88,14 @@ public class HelperMethods {
                 String caption = (String) eachWall.get("caption");
                 JSONObject endPoint = (JSONObject) eachWall.get("endPoint");
                 JSONObject startPoint = (JSONObject) eachWall.get("startPoint");
-                JSONObject smpt1 = (JSONObject) eachWall.get("smpt1");
-                JSONObject smpt2 = (JSONObject) eachWall.get("smpt2");
-                JSONObject empt1 = (JSONObject) eachWall.get("empt1");
-                JSONObject empt2 = (JSONObject) eachWall.get("empt2");
 
                 switch (caption) {
                     case "wall A":
                         // Horizontal top wall (runs from startX to startX + length)
-                        eachWall.put("length", length);
                         startPoint.put("x", startX);
                         startPoint.put("y", startY);
                         endPoint.put("x", startX + assignLength);
                         endPoint.put("y", startY);
-//                        smpt1.put("x", startX+50);
-//                        smpt1.put("y", startY+50);
-//                        smpt2.put("x", startX-50);
-//                        smpt2.put("y", startY-50);
-//                        empt1.put("x",startX + assignLength-50 );
-//                        empt1.put("y",startY-50 );
-//                        empt2.put("x",startX + assignLength+50 );
-//                        empt2.put("y",startY+50 );
-
-
                         break;
 
                     case "wall B":
@@ -141,14 +105,6 @@ public class HelperMethods {
                         startPoint.put("y", startY);
                         endPoint.put("x", startX + assignLength);
                         endPoint.put("y", startY + assignWidth);
-//                        smpt1.put("x", startX+assignLength+50);
-//                        smpt1.put("y", startY+50);
-//                        smpt2.put("x", startX+assignLength-50);
-//                        smpt2.put("y", startY-50);
-//                        empt1.put("x",startX + assignLength-50 );
-//                        empt1.put("y",startY+assignWidth-50 );
-//                        empt2.put("x",startX + assignLength+50 );
-//                        empt2.put("y",startY+assignWidth+50 );
                         break;
 
                     case "wall C":
@@ -158,14 +114,7 @@ public class HelperMethods {
                         startPoint.put("y", startY + assignWidth);
                         endPoint.put("x", startX);
                         endPoint.put("y", startY + assignWidth);
-//                        smpt1.put("x", startX+assignLength+50);
-//                        smpt1.put("y", startY+assignWidth+50);
-//                        smpt2.put("x", startX+assignLength-50);
-//                        smpt2.put("y", startY+assignWidth-50);
-//                        empt1.put("x",startX -50 );
-//                        empt1.put("y",startY+assignWidth-50 );
-//                        empt2.put("x",startX +50 );
-//                        empt2.put("y",startY+assignWidth+50 );
+
                         break;
 
                     case "wall D":
@@ -175,24 +124,13 @@ public class HelperMethods {
                         startPoint.put("y", startY + assignWidth);
                         endPoint.put("x", startX);
                         endPoint.put("y", startY);
-//                        smpt1.put("x", startX+50);
-//                        smpt1.put("y", startY+assignWidth+50);
-//                        smpt2.put("x", startX-50);
-//                        smpt2.put("y", startY+assignWidth-50);
-//                        empt1.put("x",startX -50 );
-//                        empt1.put("y",startY-50 );
-//                        empt2.put("x",startX +50 );
-//                        empt2.put("y",startY+50 );
+
                         break;
                 }
 
                 // Update the wall with new coordinates
                 eachWall.put("endPoint", endPoint);
                 eachWall.put("startPoint", startPoint);
-//                eachWall.put("smpt1", smpt1);
-//                eachWall.put("smpt2", smpt2);
-//                eachWall.put("empt1", empt1);
-//                eachWall.put("empt2", empt2);
 
                 newWallData.add(eachWall);
             });
@@ -279,13 +217,12 @@ public class HelperMethods {
         }
     }
 
-    public void apply(JSONObject room, JSONArray wall, JSONObject units) {
+    public void createRoomAndAddFurniture(JSONObject room, JSONArray wall, JSONObject units) {
 
         String baseURI = "https://sc-backend-production.homelane.com/api/v1.0/";
         String wallEndpoint = baseURI + "project/0db2a0db-e304-4459-b3d6-3d961cb816c4/floor/5f642b7d-ce8a-43f3-b38c-8b909d80e93f/walls";
         String roomEndpoint = baseURI + "project/0db2a0db-e304-4459-b3d6-3d961cb816c4/floors/5f642b7d-ce8a-43f3-b38c-8b909d80e93f/room";
-        String unitEntries = baseURI + "project/0db2a0db-e304-4459-b3d6-3d961cb816c4/floors/5f642b7d-ce8a-43f3-b38c-8b909d80e93f/rooms/720c410cf9ba2efe33e7d6d6f2586c93/unitEntries";
-        String token = "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiUk9MRV9ERVNJR05FUiIsInByb2plY3QiOiIwZGIyYTBkYi1lMzA0LTQ0NTktYjNkNi0zZDk2MWNiODE2YzQiLCJlbWFpbCI6InRlc3RvcmdzdHJ1Y3R1cmVkcDFAaG9tZWxhbmUuY29tIiwib3BlbiI6ZmFsc2UsInN1YiI6InRlc3RvcmdzdHJ1Y3R1cmVkcDFAaG9tZWxhbmUuY29tIiwiaWF0IjoxNzI3OTI3MjQzLCJleHAiOjE3MjgwMTM2NDN9.99i4iU6G2hheECZqt536qxq7O-1p_eRuanon_JVQr61cV6LfWF6fS0BqslaMsMqemsT1ba0B2DUozDClwa3ZCw";
+        String token = "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiUk9MRV9ERVNJR05FUiIsInByb2plY3QiOiIwZGIyYTBkYi1lMzA0LTQ0NTktYjNkNi0zZDk2MWNiODE2YzQiLCJlbWFpbCI6InRlc3RvcmdzdHJ1Y3R1cmVkcDFAaG9tZWxhbmUuY29tIiwib3BlbiI6ZmFsc2UsInN1YiI6InRlc3RvcmdzdHJ1Y3R1cmVkcDFAaG9tZWxhbmUuY29tIiwiaWF0IjoxNzI4NjIzOTE3LCJleHAiOjE3Mjg3MTAzMTd9.SpQwR5YPZDukjaLrPq2cpzhZZe0CAd0nG4_My1ZqqDbF6Ypckv--eg5qIaboTYiuciLA9RLReU6guXQ5bH2jVg";
         given()
                 .header("Authorization", token)
                 .header("Content-Type", "application/json")
@@ -294,15 +231,23 @@ public class HelperMethods {
                 .post(wallEndpoint).then().statusCode(200);
 
 
-        given()
+     given()
                 .header("Authorization", token)
                 .header("Content-Type", "application/json")
                 .contentType(ContentType.JSON)
                 .body(room)
                 .when()
-                .post(roomEndpoint).then().statusCode(200);
+                .post(roomEndpoint)
+                .then()
+                .statusCode(200)
+                .extract().response();
 
-        Response response = given()
+        String roomID = room.get("id").toString();
+        System.out.println(roomID);
+        String unitEntries = baseURI + "project/0db2a0db-e304-4459-b3d6-3d961cb816c4/floors/5f642b7d-ce8a-43f3-b38c-8b909d80e93f/rooms/" + roomID + "/unitEntries";
+
+
+        Response unitResponse =    given()
                 .header("Authorization", token)
                 .header("Accept", "*/*")
                 .header("Content-Type", "application/json")
@@ -312,13 +257,29 @@ public class HelperMethods {
                 .then()
                 .log().all().statusCode(200)
                 .extract().response();
+
+//        String unitEntryId =  unitResponse.jsonPath().getString("objectId");
+//        System.out.println(unitEntryId);
+//        File payload = new File("src/dimension.json");
+//        String dimensionURL = baseURI + "project/0db2a0db-e304-4459-b3d6-3d961cb816c4/floors/5f642b7d-ce8a-43f3-b38c-8b909d80e93f/rooms/" + roomID + "/unitEntries/"+unitEntryId;
+//        given()
+//                .basePath(dimensionURL)
+//                .contentType(ContentType.JSON)
+//                .header("Authorization", token)
+//                .body(payload)
+//                .when()
+//                .put()
+//                .then()
+//                .statusCode(200) // Assert that the status code is 200 OK
+//                .log().all();    // Log the response
     }
 
     public void creatingRooms(JSONObject room, JSONArray wall) {
         String baseURI = "https://sc-backend-production.homelane.com/api/v1.0/";
         String wallEndpoint = baseURI + "project/0db2a0db-e304-4459-b3d6-3d961cb816c4/floor/5f642b7d-ce8a-43f3-b38c-8b909d80e93f/walls";
         String roomEndpoint = baseURI + "project/0db2a0db-e304-4459-b3d6-3d961cb816c4/floors/5f642b7d-ce8a-43f3-b38c-8b909d80e93f/room";
-        String token = "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiUk9MRV9ERVNJR05FUiIsInByb2plY3QiOiIwZGIyYTBkYi1lMzA0LTQ0NTktYjNkNi0zZDk2MWNiODE2YzQiLCJlbWFpbCI6InRlc3RvcmdzdHJ1Y3R1cmVkcDFAaG9tZWxhbmUuY29tIiwib3BlbiI6ZmFsc2UsInN1YiI6InRlc3RvcmdzdHJ1Y3R1cmVkcDFAaG9tZWxhbmUuY29tIiwiaWF0IjoxNzI3OTI3MjQzLCJleHAiOjE3MjgwMTM2NDN9.99i4iU6G2hheECZqt536qxq7O-1p_eRuanon_JVQr61cV6LfWF6fS0BqslaMsMqemsT1ba0B2DUozDClwa3ZCw";
+        String token = "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiUk9MRV9ERVNJR05FUiIsInByb2plY3QiOiIwZGIyYTBkYi1lMzA0LTQ0NTktYjNkNi0zZDk2MWNiODE2YzQiLCJlbWFpbCI6InRlc3RvcmdzdHJ1Y3R1cmVkcDFAaG9tZWxhbmUuY29tIiwib3BlbiI6ZmFsc2UsInN1YiI6InRlc3RvcmdzdHJ1Y3R1cmVkcDFAaG9tZWxhbmUuY29tIiwiaWF0IjoxNzI4NjIzOTE3LCJleHAiOjE3Mjg3MTAzMTd9.SpQwR5YPZDukjaLrPq2cpzhZZe0CAd0nG4_My1ZqqDbF6Ypckv--eg5qIaboTYiuciLA9RLReU6guXQ5bH2jVg";
+
         given()
                 .header("Authorization", token)
                 .header("Content-Type", "application/json")

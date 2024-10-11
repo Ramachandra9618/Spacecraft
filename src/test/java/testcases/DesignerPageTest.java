@@ -12,9 +12,6 @@ import pageObject.IndexPage;
 
 import java.util.*;
 
-import static io.restassured.RestAssured.given;
-
-
 public class DesignerPageTest extends BaseClass {
 
     @Test
@@ -116,6 +113,7 @@ public class DesignerPageTest extends BaseClass {
         indexPage.clickSkip();
         designerPage.openRoomSettings();
         if (!designerPage.findAndSelectRoom(roomName)) {
+            Thread.sleep(5000);
             designerPage.createNewRoom(roomDimensions);
         }
 
@@ -128,13 +126,15 @@ public class DesignerPageTest extends BaseClass {
 
         designerPage.selectCategory(category);
         designerPage.selectSubCategory(subCategory);
+        designerPage.clickPlus();
         designerPage.searchModule(module);
         designerPage.hoverOnProduct();
         Thread.sleep(2000);
         designerPage.addProductToRoom();
-        designerPage.EnableHideEnvironment();
-        designerPage.clickCloud();
-        designerPage.selectList();
+        List<String> names = new ArrayList<>();
+        names.add("Price Payload");
+        names.add("Cutlist");
+        designerPage.downloadAndSentEmail(names);
     }
 
 
@@ -165,8 +165,7 @@ public class DesignerPageTest extends BaseClass {
         roomDimensions.put("length", length);
         HelperMethods methods = new HelperMethods();
         JSONArray wall = methods.updateLengthWalls(Integer.parseInt(length), Integer.parseInt(width), 1);
-        JSONObject room = methods.updateRoomDetails(roomDimensions);
-        room.put("walls", wall);
+        JSONObject room = methods.updateRoomDetails(roomDimensions, wall);
         JSONObject units = methods.updateFurnitureDetails(furniture);
         System.out.println(room);
 
@@ -174,7 +173,7 @@ public class DesignerPageTest extends BaseClass {
         DesignerPage designerPage = new DesignerPage();
 
 
-        methods.apply(room, wall, units);
+        methods.createRoomAndAddFurniture(room, wall, units);
         Thread.sleep(10000);
         indexPage.clickSkip();
         designerPage.openRoomSettings();
@@ -184,12 +183,10 @@ public class DesignerPageTest extends BaseClass {
 
         designerPage.switchTo3DView();
         Thread.sleep(5000);
-        designerPage.EnableHideEnvironment();
-        Thread.sleep(2000);
-        designerPage.clickCloud();
-        designerPage.selectList();
-        System.out.println(methods.updateFurnitureDetails(furniture).toJSONString());
-
+        List<String> names = new ArrayList<>();
+        names.add("Price Payload");
+        names.add("Cutlist");
+        designerPage.downloadAndSentEmail(names);
     }
 
 
@@ -199,7 +196,6 @@ public class DesignerPageTest extends BaseClass {
         int count = 3;  // Number of rooms to create
         int width = 4000;
         for (int i = 1; i <= count; i++) {
-
             Map<String, String> m = new HashMap<>();
             m.put("name", "Kitchen" + "" + i);
             JSONArray wall = methods.updateWalls(width * i);
